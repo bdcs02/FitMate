@@ -1,12 +1,14 @@
 package hu.nje.fitmate;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -15,11 +17,34 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app.db").allowMainThreadQueries().build();
+        ExcerciseDataDao data = db.allExcerciseDataDao();
+
+        ExcerciseData excercise = new ExcerciseData();
+        excercise.id = 1;
+        excercise.type = "Futás";
+        excercise.date = "2024-03-19";
+        excercise.time = "12:00";
+        excercise.distance = 5.0f;
+        excercise.maxSpeed = 10;
+        excercise.caloriesBurnt = 200;
+
+        data.insertExcercise(excercise);
+
+
+        ExcerciseData excerciseData = data.getDataById(1);
+
         Button testBtn = findViewById(R.id.testBtn);
         testBtn.setOnClickListener(v -> {
-
+            Toast.makeText(getApplicationContext(),excerciseData.type,
+                    Toast.LENGTH_SHORT).show();
         });
+
+
+
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
