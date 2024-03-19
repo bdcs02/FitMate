@@ -21,8 +21,12 @@ public class MainActivity extends AppCompatActivity {
         AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app.db").allowMainThreadQueries().build();
         ExcerciseDataDao data = db.allExcerciseDataDao();
 
+
         ExcerciseData excercise = new ExcerciseData();
-        excercise.id = 1;
+
+        //Ezt 1x kell lefutattni mert következőnek nem engedia primary key miatt
+        excercise.id = 2;
+
         excercise.type = "Futás";
         excercise.date = "2024-03-19";
         excercise.time = "12:00";
