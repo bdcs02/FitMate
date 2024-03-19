@@ -36,10 +36,8 @@ public class MainActivity extends AppCompatActivity {
         ExcerciseData excerciseData = data.getDataById(1);
 
         Button testBtn = findViewById(R.id.testBtn);
-        testBtn.setOnClickListener(v -> {
-            Toast.makeText(getApplicationContext(),excerciseData.type,
-                    Toast.LENGTH_SHORT).show();
-        });
+        testBtn.setOnClickListener(v -> Toast.makeText(getApplicationContext(),excerciseData.type,
+                Toast.LENGTH_SHORT).show());
 
 
 
