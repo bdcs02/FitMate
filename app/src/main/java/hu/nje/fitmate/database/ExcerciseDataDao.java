@@ -1,4 +1,4 @@
-package hu.nje.fitmate;
+package hu.nje.fitmate.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

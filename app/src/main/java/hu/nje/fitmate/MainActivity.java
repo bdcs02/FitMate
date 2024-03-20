@@ -1,51 +1,79 @@
 package hu.nje.fitmate;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.room.Room;
-
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
+
+import hu.nje.fitmate.database.AppDatabase;
+import hu.nje.fitmate.database.ExcerciseData;
+import hu.nje.fitmate.database.ExcerciseDataDao;
 
 public class MainActivity extends AppCompatActivity {
+
+    private NavController navController;
+    private AppBarConfiguration appBarConfiguration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
+                .build();
+        Toolbar toolbar = findViewById(R.id.mainToolbar);
+        setSupportActionBar(toolbar);
+        NavigationUI.setupWithNavController(
+                toolbar, navController, appBarConfiguration);
+
+        //navController.addOnDestinationChangedListener((controller, destination, arguments) -> Log.d("MainActivity", "Navigated to " + destination));
 
 
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app.db").allowMainThreadQueries().build();
+
+
+
+        /* AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app.db").allowMainThreadQueries().build();
         ExcerciseDataDao data = db.allExcerciseDataDao();
 
 
-        ExcerciseData excercise = new ExcerciseData();
+        ExcerciseData exercise = new ExcerciseData();
 
-        //Ezt 1x kell lefutattni mert következőnek nem engedia primary key miatt
-        excercise.id = 2;
-
-        excercise.type = "Futás";
-        excercise.date = "2024-03-19";
-        excercise.time = "12:00";
-        excercise.distance = 5.0f;
-        excercise.maxSpeed = 10;
-        excercise.caloriesBurnt = 200;
-
-        data.insertExcercise(excercise);
+        exercise.id = 2;
 
 
-        ExcerciseData excerciseData = data.getDataById(1);
+        exercise.date = "2024-03-19";
+        exercise.time = "12:00";
+        exercise.distance = 5.0f;
+        exercise.maxSpeed = 10;
+        exercise.caloriesBurnt = 200;
 
-        Button testBtn = findViewById(R.id.testBtn);
-        testBtn.setOnClickListener(v -> Toast.makeText(getApplicationContext(),excerciseData.type,
-                Toast.LENGTH_SHORT).show());
+        data.insertExcercise(exercise);
 
+
+        ExcerciseData exerciseData = data.getDataById(1); */
 
 
     }
+
+    public NavController getNavController() {
+        return navController;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
+                || super.onSupportNavigateUp();
+    }
+
 
 
     @Override
@@ -57,18 +85,16 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_home) {
-            return true;
+        if(item.getItemId() == R.id.action_home) {
+            navController.navigate(R.id.homeFragment);
         }
-
+        if(item.getItemId() == R.id.action_options) {
+            navController.navigate(R.id.optionsFragment);
+        }
         return super.onOptionsItemSelected(item);
     }
+
 
 
 

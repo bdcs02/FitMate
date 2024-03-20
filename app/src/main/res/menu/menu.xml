@@ -5,8 +5,8 @@
         android:orderInCategory="100"
         android:title="@string/action_home"
         app:showAsAction="always" />
-    <item android:id="@+id/action_timer"
+    <item android:id="@+id/action_options"
         android:orderInCategory="100"
-        android:title="@string/action_timer"
+        android:title="Options"
         app:showAsAction="always" />
 </menu>
