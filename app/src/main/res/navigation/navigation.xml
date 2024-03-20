@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="hu.nje.fitmate.fragments.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_previousExcerciseFragment"
+            app:destination="@id/previousExerciseFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_timerSettingsFragment"
+            app:destination="@id/timerSettingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_optionsFragment"
+            app:destination="@id/optionsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timerSettingsFragment"
+        android:name="hu.nje.fitmate.fragments.TimerSettingsFragment"
+        android:label="Workout Settings"
+        tools:layout="@layout/fragment_timer_settings">
+        <action
+            android:id="@+id/action_timerSettingsFragment_to_excerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="hu.nje.fitmate.fragments.ExerciseFragment"
+        android:label="Exercise"
+        tools:layout="@layout/fragment_exercise">
+        <action
+            android:id="@+id/action_excerciseFragment_to_statsFragment"
+            app:destination="@id/statsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/optionsFragment"
+        android:name="hu.nje.fitmate.fragments.OptionsFragment"
+        android:label="Options"
+        tools:layout="@layout/fragment_options" />
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="hu.nje.fitmate.fragments.StatsFragment"
+        android:label="Stats"
+        tools:layout="@layout/fragment_stats" />
+    <fragment
+        android:id="@+id/previousExerciseFragment"
+        android:name="hu.nje.fitmate.fragments.PreviousExerciseFragment"
+        android:label="History"
+        tools:layout="@layout/fragment_previous_exercise" />
+</navigation>
