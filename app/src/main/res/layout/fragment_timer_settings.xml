@@ -26,4 +26,103 @@
         android:text="Back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/exerciseTypeTextView"
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:text="Exercise type"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/title" />
+
+    <Spinner
+        android:id="@+id/exerciseTypeSpinner"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/exerciseTypeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/exerciseTypeTextView" />
+
+    <TextView
+        android:id="@+id/ExerciseTimeTextView"
+        android:layout_width="130dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:text="Exercise time"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/exerciseTypeSpinner"
+        app:layout_constraintTop_toBottomOf="@+id/exerciseTypeSpinner" />
+
+    <Button
+        android:id="@+id/ExerciseTimeButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="280dp"
+        android:text="5:00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ExerciseTimeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/ExerciseTimeTextView" />
+
+    <TextView
+        android:id="@+id/restTimeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Rest time"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/ExerciseTimeButton"
+        app:layout_constraintTop_toBottomOf="@+id/ExerciseTimeButton" />
+
+    <Button
+        android:id="@+id/restTimeButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="280dp"
+        android:text="2:00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/restTimeTextView"
+        app:layout_constraintTop_toBottomOf="@+id/restTimeTextView" />
+
+    <TextView
+        android:id="@+id/setsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Sets"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/restTimeButton"
+        app:layout_constraintTop_toBottomOf="@+id/restTimeButton" />
+
+    <EditText
+        android:id="@+id/SetsEditTextNumber"
+        android:layout_width="97dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="280dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/setsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/setsTextView" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Start"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
