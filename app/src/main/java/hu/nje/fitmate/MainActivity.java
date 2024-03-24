@@ -1,7 +1,6 @@
 package hu.nje.fitmate;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -11,11 +10,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.room.Room;
-
-import hu.nje.fitmate.database.AppDatabase;
-import hu.nje.fitmate.database.ExcerciseData;
-import hu.nje.fitmate.database.ExcerciseDataDao;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -91,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
         }
         if(item.getItemId() == R.id.action_options) {
             navController.navigate(R.id.optionsFragment);
+        }
+        if(item.getItemId() == R.id.action_timerSettingsFragment) {
+            navController.navigate(R.id.timerSettingsFragment);
         }
         return super.onOptionsItemSelected(item);
     }

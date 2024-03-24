@@ -31,9 +31,9 @@
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
-        android:name="hu.nje.fitmate.fragments.ExerciseFragment"
+        android:name="hu.nje.fitmate.fragments.TimerFragment"
         android:label="Exercise"
-        tools:layout="@layout/fragment_exercise">
+        tools:layout="@layout/fragment_timer">
         <action
             android:id="@+id/action_excerciseFragment_to_statsFragment"
             app:destination="@id/statsFragment" />

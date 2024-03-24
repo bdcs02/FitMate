@@ -9,4 +9,8 @@
         android:orderInCategory="100"
         android:title="Options"
         app:showAsAction="always" />
+    <item android:id="@+id/action_timerSettingsFragment"
+        android:orderInCategory="100"
+        android:title="Exercise"
+        app:showAsAction="always" />
 </menu>
