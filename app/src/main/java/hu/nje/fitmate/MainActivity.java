@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.fragmentContainerView);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .build();
         Toolbar toolbar = findViewById(R.id.mainToolbar);
