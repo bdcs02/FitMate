@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.fragmentContainerView);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
                 .build();
         Toolbar toolbar = findViewById(R.id.mainToolbar);
@@ -85,12 +85,17 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-        if(item.getItemId() == R.id.action_home) {
+        if(id == R.id.action_home) {
+            setTitle("Home");
             navController.navigate(R.id.homeFragment);
-        }
-        if(item.getItemId() == R.id.action_options) {
+        } else if(id == R.id.action_options) {
+            setTitle("Options");
             navController.navigate(R.id.optionsFragment);
+        } else if(id == R.id.action_history) {
+            setTitle("History");
+            navController.navigate(R.id.historyFragment);
         }
         return super.onOptionsItemSelected(item);
     }
