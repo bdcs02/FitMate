@@ -92,10 +92,13 @@ public class MainActivity extends AppCompatActivity {
             navController.navigate(R.id.homeFragment);
         } else if(id == R.id.action_options) {
             setTitle("Options");
-            navController.navigate(R.id.optionsFragment);
+            navController.navigate(R.id.timerSettingsFragment);
         } else if(id == R.id.action_history) {
             setTitle("History");
             navController.navigate(R.id.historyFragment);
+        }  else if(id == R.id.action_settings) {
+            setTitle("Settings");
+            navController.navigate(R.id.settingsFragment);
         }
         return super.onOptionsItemSelected(item);
     }
