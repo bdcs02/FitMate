@@ -11,14 +11,14 @@
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_previousExcerciseFragment"
-            app:destination="@id/previousExerciseFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_timerSettingsFragment"
             app:destination="@id/timerSettingsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_optionsFragment"
             app:destination="@id/optionsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
         android:id="@+id/timerSettingsFragment"
@@ -49,8 +49,8 @@
         android:label="Stats"
         tools:layout="@layout/fragment_stats" />
     <fragment
-        android:id="@+id/previousExerciseFragment"
-        android:name="hu.nje.fitmate.fragments.PreviousExerciseFragment"
-        android:label="History"
-        tools:layout="@layout/fragment_previous_exercise" />
+        android:id="@+id/historyFragment"
+        android:name="hu.nje.fitmate.fragments.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" />
 </navigation>
