@@ -14,11 +14,11 @@
             android:id="@+id/action_homeFragment_to_timerSettingsFragment"
             app:destination="@id/timerSettingsFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_optionsFragment"
-            app:destination="@id/optionsFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_historyFragment"
             app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/timerSettingsFragment"
@@ -39,11 +39,6 @@
             app:destination="@id/statsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/optionsFragment"
-        android:name="hu.nje.fitmate.fragments.OptionsFragment"
-        android:label="Options"
-        tools:layout="@layout/fragment_options" />
-    <fragment
         android:id="@+id/statsFragment"
         android:name="hu.nje.fitmate.fragments.StatsFragment"
         android:label="Stats"
@@ -53,4 +48,9 @@
         android:name="hu.nje.fitmate.fragments.HistoryFragment"
         android:label="fragment_history"
         tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="hu.nje.fitmate.fragments.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>
