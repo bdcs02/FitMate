@@ -26,16 +26,16 @@
         android:label="Workout Settings"
         tools:layout="@layout/fragment_timer_settings">
         <action
-            android:id="@+id/action_timerSettingsFragment_to_excerciseFragment"
-            app:destination="@id/exerciseFragment" />
+            android:id="@+id/action_timerSettingsFragment_to_timerFragment"
+            app:destination="@id/timerFragment" />
     </fragment>
     <fragment
-        android:id="@+id/exerciseFragment"
+        android:id="@+id/timerFragment"
         android:name="hu.nje.fitmate.fragments.TimerFragment"
         android:label="Exercise"
         tools:layout="@layout/fragment_timer">
         <action
-            android:id="@+id/action_excerciseFragment_to_statsFragment"
+            android:id="@+id/action_timerFragment_to_statsFragment"
             app:destination="@id/statsFragment" />
     </fragment>
     <fragment
