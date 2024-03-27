@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TimePicker;
 
 import hu.nje.fitmate.MainActivity;
@@ -42,12 +43,17 @@ public class TimerSettingsFragment extends Fragment {
         startButton = view.findViewById(R.id.startButton);
         exerciseTimeButton = view.findViewById(R.id.ExerciseTimeButton);
         restTimeButton = view.findViewById(R.id.restTimeButton);
+        EditText setsEditText = view.findViewById(R.id.SetsEditTextNumber);
 
         backButton.setOnClickListener(v -> {
             getNavController().navigate(R.id.homeFragment);
         });
 
         startButton.setOnClickListener(v -> {
+            if(setsEditText.getText().toString() != "")
+            {
+                mainViewModel.getSets().setValue(Integer.parseInt(setsEditText.getText().toString())  * 2);
+            }
             getNavController().navigate(R.id.action_timerSettingsFragment_to_timerFragment);
         });
 
