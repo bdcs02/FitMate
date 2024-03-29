@@ -13,4 +13,5 @@ public interface ExcerciseDataDao {
     @Query("SELECT * FROM ExcerciseData where id = :id")
     public ExcerciseData getDataById(int id);
 
+
 }

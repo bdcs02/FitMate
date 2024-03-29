@@ -14,4 +14,17 @@ public class ExcerciseData {
     public int maxSpeed;
 
     public int caloriesBurnt;
+
+    @Override
+    public String toString() {
+        return "ExcerciseData{" +
+                "id=" + id +
+                ", type='" + type + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", distance=" + distance +
+                ", maxSpeed=" + maxSpeed +
+                ", caloriesBurnt=" + caloriesBurnt +
+                '}';
+    }
 }

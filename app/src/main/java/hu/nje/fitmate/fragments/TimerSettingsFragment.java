@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.sqlite.db.SimpleSQLiteQuery;
+import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +15,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 import hu.nje.fitmate.MainActivity;
 import hu.nje.fitmate.MainViewModel;
 import hu.nje.fitmate.R;
+import hu.nje.fitmate.database.AppDatabase;
+import hu.nje.fitmate.database.ExcerciseData;
+import hu.nje.fitmate.database.ExcerciseDataDao;
 
 
 public class TimerSettingsFragment extends Fragment {
