@@ -7,12 +7,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
+import androidx.sqlite.db.SimpleSQLiteQuery;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import hu.nje.fitmate.MainActivity;
@@ -27,6 +29,8 @@ public class TimerSettingsFragment extends Fragment {
 
     Button exerciseTimeButton;
     Button restTimeButton;
+
+    Spinner exerciseTypeSpinner;
 
     MainViewModel mainViewModel;
     int minuteText;
@@ -44,6 +48,7 @@ public class TimerSettingsFragment extends Fragment {
         exerciseTimeButton = view.findViewById(R.id.ExerciseTimeButton);
         restTimeButton = view.findViewById(R.id.restTimeButton);
         EditText setsEditText = view.findViewById(R.id.SetsEditTextNumber);
+        exerciseTypeSpinner = view.findViewById(R.id.exerciseTypeSpinner);
 
         backButton.setOnClickListener(v -> {
             getNavController().navigate(R.id.homeFragment);
@@ -64,6 +69,7 @@ public class TimerSettingsFragment extends Fragment {
         restTimeButton.setOnClickListener(v -> {
             TimePicker(false);
         });
+
         return view;
     }
 

@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="124dp"
+        android:fontFamily="@font/roboto"
         android:text="Status"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,4 +32,17 @@
         app:layout_constraintTop_toBottomOf="@+id/statusTextView"
         app:layout_constraintVertical_bias="0.303"
         tools:text="Time" />
+
+    <TextView
+        android:id="@+id/speedTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="184dp"
+        android:fontFamily="@font/roboto"
+        android:text="Current speed: -"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

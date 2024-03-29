@@ -5,6 +5,9 @@
     android:id="@+id/action_options"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="left|center_vertical"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
     tools:context=".fragments.TimerSettingsFragment">
 
     <TextView
@@ -12,8 +15,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="92dp"
+        android:elevation="20dp"
         android:fontFamily="@font/roboto_black"
         android:text="Options about the exercise"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,8 +30,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:elevation="20dp"
         android:fontFamily="@font/roboto"
         android:text="Back"
+        android:stateListAnimator="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -38,6 +45,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_black"
         android:text="Exercise type"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title" />
@@ -45,9 +53,12 @@
     <Spinner
         android:id="@+id/exerciseTypeSpinner"
         android:layout_width="0dp"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="#FFFFFF"
+        android:elevation="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/exerciseTypeTextView"
@@ -55,93 +66,108 @@
 
     <TextView
         android:id="@+id/ExerciseTimeTextView"
-        android:layout_width="130dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="24dp"
+        android:layout_width="154dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/roboto_black"
         android:text="Exercise time"
+        android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="@+id/exerciseTypeSpinner"
         app:layout_constraintTop_toBottomOf="@+id/exerciseTypeSpinner" />
 
     <Button
         android:id="@+id/ExerciseTimeButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="280dp"
-        android:backgroundTint="#616161"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="104dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="#FFFFFF"
+        android:elevation="10dp"
         android:fontFamily="@font/roboto_light"
         android:onClick="SelectTime"
+        android:stateListAnimator="@null"
         android:text="5:00"
+        android:textColor="#000000"
+        android:textColorHighlight="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ExerciseTimeTextView"
-        app:layout_constraintTop_toBottomOf="@+id/ExerciseTimeTextView" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/ExerciseTimeTextView"
+        app:layout_constraintStart_toEndOf="@+id/ExerciseTimeTextView" />
 
     <TextView
         android:id="@+id/restTimeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="150dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/roboto_black"
         android:text="Rest time"
+        android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/ExerciseTimeButton"
+        app:layout_constraintStart_toStartOf="@+id/ExerciseTimeTextView"
         app:layout_constraintTop_toBottomOf="@+id/ExerciseTimeButton" />
 
     <Button
         android:id="@+id/restTimeButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="280dp"
-        android:backgroundTint="#616161"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="#FFFFFF"
+        android:elevation="10dp"
         android:fontFamily="@font/roboto_light"
         android:onClick="SelectTime"
+        android:stateListAnimator="@null"
         android:text="2:00"
+        android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/restTimeTextView"
-        app:layout_constraintTop_toBottomOf="@+id/restTimeTextView" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/restTimeTextView"
+        app:layout_constraintStart_toStartOf="@+id/ExerciseTimeButton" />
 
     <TextView
         android:id="@+id/setsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="152dp"
+        android:layout_height="36dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/roboto_black"
         android:text="Sets"
+        android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/restTimeButton"
+        app:layout_constraintStart_toStartOf="@+id/restTimeTextView"
         app:layout_constraintTop_toBottomOf="@+id/restTimeButton" />
 
     <EditText
         android:id="@+id/SetsEditTextNumber"
-        android:layout_width="97dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="280dp"
+        android:layout_width="88dp"
+        android:layout_height="50dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="#FFFFFF"
+        android:drawableLeft="@color/white"
+        android:elegantTextHeight="false"
+        android:elevation="10dp"
         android:ems="10"
         android:fontFamily="@font/roboto_light"
+        android:gravity="center|center_vertical"
         android:hint="5"
         android:inputType="number"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/setsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/setsTextView" />
+        android:padding="10dp"
+        android:textColor="#000000"
+        android:textColorHint="#4C4C4C"
+        app:layout_constraintBaseline_toBaselineOf="@+id/setsTextView"
+        app:layout_constraintStart_toStartOf="@+id/restTimeButton" />
 
     <Button
         android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:fontFamily="@font/roboto"
         android:text="Start"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SetsEditTextNumber"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
