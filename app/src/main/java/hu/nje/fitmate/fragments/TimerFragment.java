@@ -9,30 +9,38 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 
 import android.os.CountDownTimer;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import hu.nje.fitmate.MainActivity;
-import hu.nje.fitmate.MainViewModel;
+import hu.nje.fitmate.viewmodels.GPSViewModel;
+import hu.nje.fitmate.viewmodels.TimerSettingsViewModel;
 import hu.nje.fitmate.R;
 
 
-public class TimerFragment extends Fragment  implements LocationListener {
+public class TimerFragment extends Fragment {
 
-    MainViewModel mainViewModel;
+    TimerSettingsViewModel timerSettingsViewModel;
+    GPSViewModel gpsViewModel;
 
     TextView timeTextView;
     TextView statusTextView;
     TextView speedTextView;
+    View view;
 
     int exerciseMinute = 5;
     int exerciseSecond = 0;
@@ -46,26 +54,53 @@ public class TimerFragment extends Fragment  implements LocationListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_timer, container, false);
+        view = inflater.inflate(R.layout.fragment_timer, container, false);
         // Inflate the layout for this fragment
-        mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+        timerSettingsViewModel = new ViewModelProvider(getActivity()).get(TimerSettingsViewModel.class);
+        gpsViewModel = new ViewModelProvider(getActivity()).get(GPSViewModel.class);
 
         timeTextView = view.findViewById(R.id.timeTextView);
         statusTextView = view.findViewById(R.id.statusTextView);
         speedTextView = view.findViewById(R.id.speedTextView);
 
-        exerciseMinute = mainViewModel.getExerciseTimeMinute().getValue();
-        exerciseSecond = mainViewModel.getExerciseTimeSecond().getValue();
-        restMinute = mainViewModel.getRestTimeMinute().getValue();
-        restSecond = mainViewModel.getRestTimeSecond().getValue();
-        sets = mainViewModel.getSets().getValue();
+        timerSettingsViewModel.SetValues();
 
-        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
+        exerciseMinute = timerSettingsViewModel.getExerciseTimeMinute().getValue();
+        exerciseSecond = timerSettingsViewModel.getExerciseTimeSecond().getValue();
+        restMinute = timerSettingsViewModel.getRestTimeMinute().getValue();
+        restSecond = timerSettingsViewModel.getRestTimeSecond().getValue();
+        sets = timerSettingsViewModel.getSets().getValue();
+
+        Exercise();
+
+        if (gpsViewModel.getPermission().getValue() != 1) {
+            gpsViewModel.StartGPS(getContext(),getActivity());
         } else {
-            GPS();
-            Exercise();
+            gpsViewModel.getSpeed().observe(getActivity(), data ->
+                    speedTextView.setText( String.format("%.2f", data) + "m/s" )
+            );
         }
+
+        //ANIMATION
+        ImageView backgroundCircle = view.findViewById(R.id.backgroundCircle);
+        ImageView backgroundCircle2 = view.findViewById(R.id.backgroundCircle2);
+
+        Animation scaleUpAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_up_animation);
+        Animation scaleDownAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.scale_down_animation);
+        Animation fadeInAnimation = AnimationUtils.loadAnimation(getContext(), R.anim.alpha_animation);
+
+        AnimationSet animationUpSet = new AnimationSet(true);
+        animationUpSet.addAnimation(scaleUpAnimation);
+        animationUpSet.addAnimation(fadeInAnimation);
+
+        AnimationSet animationDownSet = new AnimationSet(true);
+        animationDownSet.addAnimation(scaleDownAnimation);
+        animationDownSet.addAnimation(fadeInAnimation);
+
+
+        backgroundCircle.startAnimation(animationUpSet);
+        backgroundCircle2.startAnimation(animationDownSet);
+
 
         return view;
     }
@@ -87,18 +122,6 @@ public class TimerFragment extends Fragment  implements LocationListener {
         }.start();
     }
 
-    private void GPS() {
-        LocationManager lm = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-
-        if (lm != null) {
-            if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        }
-        Toast.makeText(getContext(),"Waiting for GPS connection!", Toast.LENGTH_SHORT).show();
-    }
-
     void Exercise()
     {
         if(sets <= 0)
@@ -110,11 +133,13 @@ public class TimerFragment extends Fragment  implements LocationListener {
         {
             SetTimer(exerciseMinute,exerciseSecond);
             statusTextView.setText("Running");
+            view.setBackgroundColor(getResources().getColor(R.color.light_blue));
         }
         else
         {
             SetTimer(restMinute,restSecond);
             statusTextView.setText("Walking");
+            view.setBackgroundColor(getResources().getColor(R.color.light_green));
         }
     }
 
@@ -122,24 +147,15 @@ public class TimerFragment extends Fragment  implements LocationListener {
         return ((MainActivity)getActivity()).getNavController();
     }
 
-
-    @Override
-    public void onLocationChanged(@NonNull Location location) {
-
-        speed = location.getSpeed();
-        speedTextView.setText(String.format("%.2f",speed) + " m/s");
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == 1000) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                GPS();
-            }
-
+        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            gpsViewModel.StartGPS(getContext(),getActivity());
+        } else {
+            gpsViewModel.getSpeed().observe(getActivity(), data ->
+                    speedTextView.setText( String.format("%.2f", data) + "m/s" )
+            );
         }
-
     }
-
 }

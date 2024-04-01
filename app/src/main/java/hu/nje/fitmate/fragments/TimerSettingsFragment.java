@@ -4,10 +4,8 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.room.Room;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,15 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.TimePicker;
 
 import hu.nje.fitmate.MainActivity;
-import hu.nje.fitmate.MainViewModel;
+import hu.nje.fitmate.viewmodels.TimerSettingsViewModel;
 import hu.nje.fitmate.R;
-import hu.nje.fitmate.database.AppDatabase;
-import hu.nje.fitmate.database.ExcerciseData;
-import hu.nje.fitmate.database.ExcerciseDataDao;
 
 
 public class TimerSettingsFragment extends Fragment {
@@ -36,7 +30,7 @@ public class TimerSettingsFragment extends Fragment {
 
     Spinner exerciseTypeSpinner;
 
-    MainViewModel mainViewModel;
+    TimerSettingsViewModel timerSettingsViewModel;
     int minuteText;
     int secondText;
     @Override
@@ -45,7 +39,7 @@ public class TimerSettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_timer_settings, container, false);
 
-        mainViewModel = new ViewModelProvider(getActivity()).get(MainViewModel.class);
+        timerSettingsViewModel = new ViewModelProvider(getActivity()).get(TimerSettingsViewModel.class);
 
         backButton = view.findViewById(R.id.backButton);
         startButton = view.findViewById(R.id.startButton);
@@ -59,10 +53,6 @@ public class TimerSettingsFragment extends Fragment {
         });
 
         startButton.setOnClickListener(v -> {
-            if(setsEditText.getText().toString() != "")
-            {
-                mainViewModel.getSets().setValue(Integer.parseInt(setsEditText.getText().toString())  * 2);
-            }
             getNavController().navigate(R.id.action_timerSettingsFragment_to_timerFragment);
         });
 
@@ -90,14 +80,14 @@ public class TimerSettingsFragment extends Fragment {
             public void onTimeSet(TimePicker view, int minute, int second) {
                 if(exerciseSelect)
                 {
-                    mainViewModel.getExerciseTimeMinute().setValue(minute);
-                    mainViewModel.getExerciseTimeSecond().setValue(second);
+                    timerSettingsViewModel.getExerciseTimeMinute().setValue(minute);
+                    timerSettingsViewModel.getExerciseTimeSecond().setValue(second);
                     exerciseTimeButton.setText(minute + ":" + ((second > 9) ? second: "0" + second ));
                 }
                 else
                 {
-                    mainViewModel.getRestTimeMinute().setValue(minute);
-                    mainViewModel.getRestTimeSecond().setValue(second);
+                    timerSettingsViewModel.getRestTimeMinute().setValue(minute);
+                    timerSettingsViewModel.getRestTimeSecond().setValue(second);
                     restTimeButton.setText(minute + ":" + ((second > 9) ? second: "0" + second));
                 }
                 minuteText = minute;

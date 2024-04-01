@@ -1,9 +1,9 @@
-package hu.nje.fitmate;
+package hu.nje.fitmate.viewmodels;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MainViewModel extends ViewModel {
+public class TimerSettingsViewModel extends ViewModel {
 
     private final MutableLiveData<Integer> exerciseTimeSecond = new MutableLiveData<>();
     private final MutableLiveData<Integer> exerciseTimeMinute = new MutableLiveData<>();
@@ -32,5 +32,13 @@ public class MainViewModel extends ViewModel {
 
     public MutableLiveData<Integer> getSets() {
         return sets;
+    }
+
+    public void SetValues(){
+        if(getExerciseTimeMinute().getValue() == null) {exerciseTimeMinute.setValue(5);}
+        if(getExerciseTimeSecond().getValue() == null) {exerciseTimeSecond.setValue(0);}
+        if(getRestTimeMinute().getValue() == null){restTimeMinute.setValue(2);}
+        if(getRestTimeSecond().getValue() == null){restTimeSecond.setValue(0);}
+        if(getSets().getValue() == null){sets.setValue(5);}
     }
 }
