@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 
 import android.os.CountDownTimer;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +27,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.List;
+
 import hu.nje.fitmate.MainActivity;
 import hu.nje.fitmate.viewmodels.GPSViewModel;
 import hu.nje.fitmate.viewmodels.TimerSettingsViewModel;
 import hu.nje.fitmate.R;
+import hu.nje.fitmate.viewmodels.TimerToStatsViewModel;
 
 
 public class TimerFragment extends Fragment {
 
     TimerSettingsViewModel timerSettingsViewModel;
     GPSViewModel gpsViewModel;
+
+    TimerToStatsViewModel timerToStatsViewModel;
 
     TextView timeTextView;
     TextView statusTextView;
@@ -49,8 +60,11 @@ public class TimerFragment extends Fragment {
     int sets = 5;
 
     float speed;
+    String startTime;
 
     boolean exercise = true;
+
+    List<Float> gpsSpeedData = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -58,6 +72,7 @@ public class TimerFragment extends Fragment {
         // Inflate the layout for this fragment
         timerSettingsViewModel = new ViewModelProvider(getActivity()).get(TimerSettingsViewModel.class);
         gpsViewModel = new ViewModelProvider(getActivity()).get(GPSViewModel.class);
+        timerToStatsViewModel = new ViewModelProvider(getActivity()).get(TimerToStatsViewModel.class);
 
         timeTextView = view.findViewById(R.id.timeTextView);
         statusTextView = view.findViewById(R.id.statusTextView);
@@ -69,16 +84,20 @@ public class TimerFragment extends Fragment {
         exerciseSecond = timerSettingsViewModel.getExerciseTimeSecond().getValue();
         restMinute = timerSettingsViewModel.getRestTimeMinute().getValue();
         restSecond = timerSettingsViewModel.getRestTimeSecond().getValue();
-        sets = timerSettingsViewModel.getSets().getValue();
+        sets = timerSettingsViewModel.getSets().getValue() * 2;
 
         Exercise();
 
         if (gpsViewModel.getPermission().getValue() != 1) {
             gpsViewModel.StartGPS(getContext(),getActivity());
         } else {
-            gpsViewModel.getSpeed().observe(getActivity(), data ->
-                    speedTextView.setText( String.format("%.2f", data) + "m/s" )
-            );
+            gpsViewModel.getSpeed().observe(getActivity(), data -> {
+                if(data != 0.0f)
+                {
+                    speed = data;
+                }
+                speedTextView.setText(String.format("%.2f", data) + "m/s");
+            });
         }
 
         //ANIMATION
@@ -101,6 +120,10 @@ public class TimerFragment extends Fragment {
         backgroundCircle.startAnimation(animationUpSet);
         backgroundCircle2.startAnimation(animationDownSet);
 
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String currentTime = sdf.format(calendar.getTime());
+        startTime = currentTime;
 
         return view;
     }
@@ -117,6 +140,11 @@ public class TimerFragment extends Fragment {
             public  void onFinish(){
                 exercise=!exercise;
                 sets--;
+
+                if(gpsViewModel.getPermission().getValue() == 1)
+                {
+                    gpsSpeedData.add(speed);
+                }
                 Exercise();
             }
         }.start();
@@ -126,7 +154,50 @@ public class TimerFragment extends Fragment {
     {
         if(sets <= 0)
         {
-            getNavController().navigate(R.id.homeFragment);
+            //StartTime
+            timerToStatsViewModel.getStartTime().setValue(startTime);
+
+            //EndTime
+            Calendar calendar = Calendar.getInstance();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String currentTime = sdf.format(calendar.getTime());
+            timerToStatsViewModel.getEndTime().setValue(currentTime);
+
+            //Duration
+            int duration = ((exerciseMinute * 60) + exerciseSecond + (restMinute * 60) + restSecond) * timerSettingsViewModel.getSets().getValue() * 2;
+            timerToStatsViewModel.getDuration().setValue(duration / 60);
+            float minutes = (duration / 60f);
+            Log.d(getTag(), "Duration in minutes: " + String.format("%.2f", minutes));
+
+            //GPS
+            if(gpsViewModel.getPermission().getValue() == 1)
+            {
+                //Maximum
+                timerToStatsViewModel.getGpsMaximumSpeed().setValue(Collections.max(gpsSpeedData));
+                Log.d(getTag(), "Speed maximum: " + Collections.max(gpsSpeedData));
+                //Minimum
+                timerToStatsViewModel.getGpsMinimumSpeed().setValue(Collections.min(gpsSpeedData));
+                Log.d(getTag(), "Speed minimum: " + Collections.min(gpsSpeedData));
+                //Average
+                float sum = 0;
+                for (float speed : gpsSpeedData) {
+                    sum += speed;
+                }
+                float average = sum /  gpsSpeedData.size();
+                timerToStatsViewModel.getGpsAverageSpeed().setValue(average);
+                Log.d(getTag(), "Speed average: " +average);
+
+
+                String data = "";
+                for (float speed : gpsSpeedData) {
+                    data += speed + "\n";
+                }
+                Log.d(getTag(), "DATA: " +data);
+            }
+
+
+            //Navigate
+            getNavController().navigate(R.id.statsFragment);
         }
 
         if(exercise)
@@ -153,9 +224,13 @@ public class TimerFragment extends Fragment {
         if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             gpsViewModel.StartGPS(getContext(),getActivity());
         } else {
-            gpsViewModel.getSpeed().observe(getActivity(), data ->
-                    speedTextView.setText( String.format("%.2f", data) + "m/s" )
-            );
+            gpsViewModel.getSpeed().observe(getActivity(), data -> {
+                if(data != 0.0f)
+                {
+                    speed = data;
+                }
+                speedTextView.setText(String.format("%.2f", data) + "m/s");
+            });
         }
     }
 }

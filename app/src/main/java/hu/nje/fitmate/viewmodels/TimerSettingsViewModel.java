@@ -42,6 +42,6 @@ public class TimerSettingsViewModel extends ViewModel {
         if(getExerciseTimeSecond().getValue() == null) {exerciseTimeSecond.setValue(0);}
         if(getRestTimeMinute().getValue() == null){restTimeMinute.setValue(2);}
         if(getRestTimeSecond().getValue() == null){restTimeSecond.setValue(0);}
-        if(getSets().getValue() == null){sets.setValue(5);}
+        if(getSets().getValue() == null){sets.setValue(10);}
     }
 }

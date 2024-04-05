@@ -100,6 +100,10 @@ public class TimerSettingsFragment extends Fragment {
         });
 
         startButton.setOnClickListener(v -> {
+            if(!setsEditText.getText().toString().isEmpty())
+            {
+                timerSettingsViewModel.getSets().setValue(Integer.parseInt(setsEditText.getText().toString()));
+            }
             getNavController().navigate(R.id.action_timerSettingsFragment_to_timerFragment);
         });
 
