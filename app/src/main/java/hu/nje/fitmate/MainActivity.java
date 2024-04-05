@@ -11,12 +11,15 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import androidx.room.Room;
 
+import hu.nje.fitmate.database.AppDatabase;
 import hu.nje.fitmate.viewmodels.GPSViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
     private NavController navController;
+    private AppDatabase appDatabase;
     private AppBarConfiguration appBarConfiguration;
 
     GPSViewModel gpsViewModel;
@@ -43,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        /* AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "app.db").allowMainThreadQueries().build();
-        ExcerciseDataDao data = db.allExcerciseDataDao();
+        appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
+        /*ExcerciseDataDao data = db.allExcerciseDataDao();
 
 
         ExcerciseData exercise = new ExcerciseData();
@@ -68,6 +71,9 @@ public class MainActivity extends AppCompatActivity {
 
     public NavController getNavController() {
         return navController;
+    }
+    public AppDatabase getAppDatabase() {
+        return appDatabase;
     }
 
     @Override

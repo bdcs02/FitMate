@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 public class TimerSettingsViewModel extends ViewModel {
 
+    private final MutableLiveData<String> exerciseType = new MutableLiveData<>();
     private final MutableLiveData<Integer> exerciseTimeSecond = new MutableLiveData<>();
     private final MutableLiveData<Integer> exerciseTimeMinute = new MutableLiveData<>();
 
@@ -13,6 +14,7 @@ public class TimerSettingsViewModel extends ViewModel {
 
     private final MutableLiveData<Integer> sets = new MutableLiveData<>();
 
+    public MutableLiveData<String> getExerciseType() {return exerciseType;}
 
     public MutableLiveData<Integer> getExerciseTimeSecond() {
         return exerciseTimeSecond;
@@ -35,6 +37,7 @@ public class TimerSettingsViewModel extends ViewModel {
     }
 
     public void SetValues(){
+        if(getExerciseType().getValue() == null) {exerciseType.setValue("Futás");}
         if(getExerciseTimeMinute().getValue() == null) {exerciseTimeMinute.setValue(5);}
         if(getExerciseTimeSecond().getValue() == null) {exerciseTimeSecond.setValue(0);}
         if(getRestTimeMinute().getValue() == null){restTimeMinute.setValue(2);}
