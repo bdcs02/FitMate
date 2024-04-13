@@ -88,16 +88,20 @@ public class TimerFragment extends Fragment {
 
         Exercise();
 
-        if (gpsViewModel.getPermission().getValue() != 1) {
-            gpsViewModel.StartGPS(getContext(),getActivity());
+        gpsViewModel.setContext(getContext());
+
+        if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
+
         } else {
-            gpsViewModel.getSpeed().observe(getActivity(), data -> {
-                if(data != 0.0f)
-                {
-                    speed = data;
-                }
-                speedTextView.setText(String.format("%.2f", data) + "m/s");
-            });
+                gpsViewModel.Start();
+                gpsViewModel.getSpeed().observe(getActivity(), data -> {
+                    if(data != 0.0f)
+                    {
+                        speed = data;
+                    }
+                    speedTextView.setText(String.format("%.2f", data) + "m/s");
+                });
         }
 
         //ANIMATION
@@ -203,13 +207,13 @@ public class TimerFragment extends Fragment {
         if(exercise)
         {
             SetTimer(exerciseMinute,exerciseSecond);
-            statusTextView.setText("Running");
+            statusTextView.setText("Exercise");
             view.setBackgroundColor(getResources().getColor(R.color.light_blue));
         }
         else
         {
             SetTimer(restMinute,restSecond);
-            statusTextView.setText("Walking");
+            statusTextView.setText("Rest");
             view.setBackgroundColor(getResources().getColor(R.color.light_green));
         }
     }
@@ -221,16 +225,14 @@ public class TimerFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        gpsViewModel.setContext(getContext());
         if (ActivityCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            gpsViewModel.StartGPS(getContext(),getActivity());
-        } else {
-            gpsViewModel.getSpeed().observe(getActivity(), data -> {
-                if(data != 0.0f)
-                {
-                    speed = data;
-                }
-                speedTextView.setText(String.format("%.2f", data) + "m/s");
-            });
+            ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
+        }
+        else
+        {
+            gpsViewModel.Start();
         }
     }
+
 }

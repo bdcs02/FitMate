@@ -1,11 +1,17 @@
 package hu.nje.fitmate;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -14,6 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.room.Room;
 
 import hu.nje.fitmate.database.AppDatabase;
+import hu.nje.fitmate.database.models.Category;
 import hu.nje.fitmate.viewmodels.GPSViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,15 +29,12 @@ public class MainActivity extends AppCompatActivity {
     private AppDatabase appDatabase;
     private AppBarConfiguration appBarConfiguration;
 
-    GPSViewModel gpsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        gpsViewModel = new ViewModelProvider(this).get(GPSViewModel.class);
-        gpsViewModel.StartGPS(this,this);
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph())
@@ -43,29 +47,16 @@ public class MainActivity extends AppCompatActivity {
         //navController.addOnDestinationChangedListener((controller, destination, arguments) -> Log.d("MainActivity", "Navigated to " + destination));
 
 
-
-
-
         appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
-        /*ExcerciseDataDao data = db.allExcerciseDataDao();
 
-
-        ExcerciseData exercise = new ExcerciseData();
-
-        exercise.id = 2;
-
-
-        exercise.date = "2024-03-19";
-        exercise.time = "12:00";
-        exercise.distance = 5.0f;
-        exercise.maxSpeed = 10;
-        exercise.caloriesBurnt = 200;
-
-        data.insertExcercise(exercise);
-
-
-        ExcerciseData exerciseData = data.getDataById(1); */
-
+        if(appDatabase.categoryDao().getCategorys().isEmpty())
+        {
+            appDatabase.categoryDao().insertCategory(new Category("Futás","Leírás"));
+            appDatabase.categoryDao().insertCategory(new Category("Kocogás","Leírás"));
+            appDatabase.categoryDao().insertCategory(new Category("Sprintelés","Leírás"));
+            appDatabase.categoryDao().insertCategory(new Category("Gyaloglás","Leírás"));
+            appDatabase.categoryDao().insertCategory(new Category("Plank","Leírás"));
+        }
 
     }
 
@@ -114,9 +105,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
 }

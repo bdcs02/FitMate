@@ -38,17 +38,22 @@ public class GPSViewModel extends ViewModel implements LocationListener {
         return permission;
     }
 
-    public void StartGPS(Context context, Activity activity)
+    Context context;
+
+    public void setContext(Context context){
+        this.context = context;
+    }
+
+    public void Start()
     {
-        speed.setValue(0f);
-        latitude.setValue(0d);
-        longitude.setValue(0d);
-        permission.setValue(0);
-        if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
-        } else {
+        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        if (lm != null) {
+            if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
             permission.setValue(1);
-            GPS(context);
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            Toast.makeText(context, "Waiting for GPS connection!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -59,16 +64,9 @@ public class GPSViewModel extends ViewModel implements LocationListener {
         longitude.setValue(location.getLongitude());
     }
 
-    public void GPS(Context context) {
-        LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-
-        if (lm != null) {
-            if (ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-        }
-        Toast.makeText(context,"Waiting for GPS connection!", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onProviderEnabled(@NonNull String provider) {
+        LocationListener.super.onProviderEnabled(provider);
+        Start();
     }
-
 }
