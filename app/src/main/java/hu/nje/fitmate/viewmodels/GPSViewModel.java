@@ -53,7 +53,7 @@ public class GPSViewModel extends ViewModel implements LocationListener {
             }
             permission.setValue(1);
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-            Toast.makeText(context, "Waiting for GPS connection!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(context, "Waiting for GPS connection!", Toast.LENGTH_SHORT).show();
         }
     }
 

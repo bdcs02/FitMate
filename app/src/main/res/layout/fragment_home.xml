@@ -19,4 +19,155 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/Ly_nagy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.012">
+        <!--DAILY-->
+        <LinearLayout
+            android:id="@+id/Ly_daily"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/Tv_daily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily Goal: "
+                android:textSize="30dp" />
+
+        </LinearLayout>
+        <!--DAILY V E G E-->
+
+        <!--WEATHER-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Weather"
+                    android:textSize="30dp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--WEATHER IMAGEVIEW-VEL????-->
+                    <ImageView
+                        android:id="@+id/Tv_WeatherImg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="KEP helye "
+                        android:textSize="30dp" />
+                    <!--WEATHER IMAGE V E G E-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!--WEATHER jelzés-->
+                        <TextView
+                            android:id="@+id/Tv_Weather"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Todays weather:"
+                            android:textSize="30dp" />
+                        <!--WEATHER jelzés V E G E-->
+
+                        <!--WEATHER celsius-->
+                        <TextView
+                            android:id="@+id/Tv_Temp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Temperature:"
+                            android:textSize="30dp" />
+                        <!--WEATHER celsius V E G E-->
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+        <!--WEATHER V E G E-->
+
+        <!--PREVIOUS-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!--Previous img-->
+                <TextView
+                    android:id="@+id/Tv_PreviousImg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="KEP helye "
+                    android:textSize="30dp" />
+                <!--Previous imgV E G E-->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/Tv_CalBurn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Calories burnt:"
+                        android:textSize="30dp" />
+
+                    <TextView
+                        android:id="@+id/Tv_Tm"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Time:"
+                        android:textSize="30dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/bt_AllPrevEx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="See all previous exercises" />
+
+            <Button
+                android:id="@+id/bt_StartEx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Start exercises" />
+        </LinearLayout>
+        <!--PREVIOUS V E G E-->
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,54 +48,50 @@ public class HomeFragment extends Fragment {
         } else {
             gpsViewModel.Start();
             TextView textView = view.findViewById(R.id.textView3);
-            textView.setText("Lat:"+gpsViewModel.getLatitude().getValue() + " Lon:" + gpsViewModel.getLongitude().getValue());
-            double lat, lon;
+            String lat, lon;
             if (gpsViewModel.getLatitude().getValue() != null && gpsViewModel.getLongitude().getValue() != null) {
-                lat = gpsViewModel.getLatitude().getValue();
-                lon = gpsViewModel.getLongitude().getValue();
+                lat = String.format("%.2f", gpsViewModel.getLatitude().getValue());
+                lon = String.format("%.2f", gpsViewModel.getLongitude().getValue());
+
             }
             else {
-                lat = 19.08;//gps adat
-                lon = 47.5;
+                lat = "19.08";//gps adat
+                lon = "47.5";
                 //Budapest
             }
+            textView.setText("Lat:"+lat+ " Lon:" + lon);
             IdoJarasLekerdez(lon,lat);//idojaras lekerdezes
         }
 
         return view;
     }
 
-    public void IdoJarasLekerdez(double lon,double lat){
+    public void IdoJarasLekerdez(String lon,String lat){
         // URL inicializálása
-        url = "http://api.weatherapi.com/v1/current.json?key=b3c62761b3034d35bdf142653242403&q="+lon+","+lat+"&aqi=yes";
+        url = "http://api.weatherapi.com/v1/current.json?key=b3c62761b3034d35bdf142653242403&q=Budapest&aqi=yes";
 
         // Kérés inicializálása
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        // Válaszfeldolgozás
-                        try {
-                            JSONObject datatime=response.getJSONObject("current");
-                            double homerseklet=datatime.getDouble("temp_c");
-                            data.setText(""+homerseklet);
+                response -> {
+                    // Válaszfeldolgozás
+                    try {
+                        JSONObject datatime=response.getJSONObject("current");
+                        double homerseklet=datatime.getDouble("temp_c");
+                        data.setText(""+homerseklet);
 
-                            Toast.makeText(getContext(), "Sikeres lekérdezés", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Sikeres lekérdezés", Toast.LENGTH_SHORT).show();
 
-                            // Kép letöltése és megjelenítése Glide segítségével
+                        // Kép letöltése és megjelenítése Glide segítségével
 
-                        } catch (Exception e) {
-                            Toast.makeText(getContext(), "Sikertelen lekérdezés", Toast.LENGTH_SHORT).show();
-                        }
+                    } catch (Exception e) {
+                        Toast.makeText(getContext(), "Sikertelen lekérdezés", Toast.LENGTH_SHORT).show();
                     }
                 },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        // Hibakezelés
-                        //data.setText(error.toString());
-                        error.printStackTrace();
-                    }
+                error -> {
+                    // Hibakezelés
+                    //data.setText(error.toString());
+                    error.printStackTrace();
+                    data.setText(error.toString());
                 });
 
         // RequestQueue létrehozása és a kérés hozzáadása
