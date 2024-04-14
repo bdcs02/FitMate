@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment {
 
     public void IdoJarasLekerdez(String lon,String lat){
         // URL inicializálása
-        url = "http://api.weatherapi.com/v1/current.json?key=b3c62761b3034d35bdf142653242403&q=Budapest&aqi=yes";
+        url = "http://api.weatherapi.com/v1/current.json?key=b3c62761b3034d35bdf142653242403&q="+lon+","+lat+"&aqi=yes";
 
         // Kérés inicializálása
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -91,7 +91,6 @@ public class HomeFragment extends Fragment {
                     // Hibakezelés
                     //data.setText(error.toString());
                     error.printStackTrace();
-                    data.setText(error.toString());
                 });
 
         // RequestQueue létrehozása és a kérés hozzáadása
