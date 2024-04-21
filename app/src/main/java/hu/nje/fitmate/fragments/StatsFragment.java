@@ -33,7 +33,7 @@ public class StatsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_stats, container, false);
 
-        //timerToStatsViewModel = new ViewModelProvider(getActivity()).get(TimerToStatsViewModel.class);
+        timerToStatsViewModel = new ViewModelProvider(getActivity()).get(TimerToStatsViewModel.class);
         saveExitButton = view.findViewById(R.id.saveExitButton);
         statisticsTextView = view.findViewById(R.id.statisticsTextView);
         timeText = view.findViewById(R.id.timeText);
@@ -42,7 +42,7 @@ public class StatsFragment extends Fragment {
         caloriesText = view.findViewById(R.id.calories);
 
 
-       /*  timerToStatsViewModel.getDuration().observe(getViewLifecycleOwner(), duration ->
+       timerToStatsViewModel.getDuration().observe(getViewLifecycleOwner(), duration ->
                 distanceText.setText("Duration " + String.valueOf(duration) + " minutes"));
 
         timerToStatsViewModel.getGpsMaximumSpeed().observe(getViewLifecycleOwner(), gps ->
@@ -51,7 +51,7 @@ public class StatsFragment extends Fragment {
         timerToStatsViewModel.getStartTime().observe(getViewLifecycleOwner(), startTime -> {
             String endTime = timerToStatsViewModel.getEndTime().getValue();
             timeText.setText("Time: " + startTime + " " + endTime);
-        }); */
+        });
         saveExitButton.setOnClickListener(v -> getNavController().navigate(R.id.historyFragment));
         return view;
     }
