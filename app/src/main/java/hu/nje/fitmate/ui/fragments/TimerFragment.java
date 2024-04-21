@@ -202,7 +202,7 @@ public class TimerFragment extends Fragment {
 
 
             //Navigate
-
+            getNavController().navigate(R.id.statsFragment);
         }
 
         if(exercise)
@@ -211,13 +211,11 @@ public class TimerFragment extends Fragment {
             statusTextView.setText("Exercise");
             view.setBackgroundColor(getResources().getColor(R.color.light_blue));
         }
-        else
-        {
-            SetTimer(restMinute,restSecond);
+        else {
+            SetTimer(restMinute, restSecond);
             statusTextView.setText("Rest");
             view.setBackgroundColor(getResources().getColor(R.color.light_green));
         }
-        getNavController().navigate(R.id.statsFragment);
     }
 
     private NavController getNavController() {
