@@ -1,4 +1,4 @@
-package hu.nje.fitmate.fragments;
+package hu.nje.fitmate.ui.fragments;
 
 import android.os.Bundle;
 
@@ -13,7 +13,7 @@ import android.widget.Button;
 import hu.nje.fitmate.MainActivity;
 import hu.nje.fitmate.R;
 
-public class HistoryFragment extends Fragment {
+public class SettingsFragment extends Fragment {
 
     private Button backButton;
 
@@ -21,13 +21,13 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_history, container, false);
+        View view  = inflater.inflate(R.layout.fragment_settings, container, false);
 
-        backButton = view.findViewById(R.id.btBackHistory);
+        backButton = view.findViewById(R.id.btBackSettings);
+
         backButton.setOnClickListener(v -> {
             getNavController().navigate(R.id.homeFragment);
         });
-
         return view;
     }
 

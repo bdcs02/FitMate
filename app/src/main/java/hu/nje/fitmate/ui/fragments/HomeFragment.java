@@ -1,4 +1,4 @@
-package hu.nje.fitmate.fragments;
+package hu.nje.fitmate.ui.fragments;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;

@@ -7,14 +7,9 @@
         android:title="@string/action_home"
         app:showAsAction="always" />
 
-    <item android:id="@+id/action_options"
-        android:orderInCategory="100"
-        android:title="Options"
-        app:showAsAction="always" />
     <item android:id="@+id/action_timerSettingsFragment"
         android:orderInCategory="100"
         android:title="Exercise"
-        app:showAsAction="never" />
         app:showAsAction="never" />
 
     <item android:id="@+id/action_history"

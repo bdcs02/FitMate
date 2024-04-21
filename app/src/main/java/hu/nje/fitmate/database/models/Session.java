@@ -9,7 +9,9 @@ import androidx.room.PrimaryKey;
         @ForeignKey(entity = Category.class,
                 parentColumns = "categoryID",
                 childColumns = "categoryID",
-                onDelete = ForeignKey.CASCADE))
+                onDelete = ForeignKey.CASCADE
+        )
+)
 public class Session {
 
     public Session() {
@@ -35,6 +37,8 @@ public class Session {
     private String sessionDesc;
 
     private int categoryID;
+
+
 
     public int getSessionID() {
         return sessionID;
