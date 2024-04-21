@@ -21,6 +21,7 @@ import androidx.room.Room;
 
 import hu.nje.fitmate.database.AppDatabase;
 import hu.nje.fitmate.database.models.Category;
+import hu.nje.fitmate.database.models.Session;
 import hu.nje.fitmate.viewmodels.GPSViewModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         appDatabase = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "database.db").allowMainThreadQueries().build();
 
+        // insert mock data
         if(appDatabase.categoryDao().getCategorys().isEmpty())
         {
             appDatabase.categoryDao().insertCategory(new Category("Futás","Leírás"));
@@ -56,6 +58,17 @@ public class MainActivity extends AppCompatActivity {
             appDatabase.categoryDao().insertCategory(new Category("Sprintelés","Leírás"));
             appDatabase.categoryDao().insertCategory(new Category("Gyaloglás","Leírás"));
             appDatabase.categoryDao().insertCategory(new Category("Plank","Leírás"));
+        }
+
+        if(appDatabase.sessionDao().getAllSessions().isEmpty()) {
+            appDatabase.sessionDao().insertSession(new Session("2024.04.01 11:00", "2024.04.01 12:00", 122.5, "Session description", 1));
+            appDatabase.sessionDao().insertSession(new Session("2024.04.01 12:00", "2024.04.01 13:00", 150.9, "Session description", 1));
+            appDatabase.sessionDao().insertSession(new Session("2024.04.01 13:00", "2024.04.01 14:00", 210, "Session description", 2));
+            appDatabase.sessionDao().insertSession(new Session("2024.04.01 15:00", "2024.04.01 16:00", 172.2, "Session description", 2));
+            appDatabase.sessionDao().insertSession(new Session("2024.04.01 17:00", "2024.04.01 18:00", 87.9, "Session description", 3));
+            appDatabase.sessionDao().insertSession(new Session("2024.04.01 03:00", "2024.04.01 04:00", 56.1, "Session description", 3));
+            appDatabase.sessionDao().insertSession(new Session("2024.04.01 07:00", "2024.04.01 08:00", 98.3, "Session description", 4));
+            appDatabase.sessionDao().insertSession(new Session("2024.04.01 09:00", "2024.04.01 10:00", 85.7, "Session description", 4));
         }
 
     }
@@ -90,9 +103,6 @@ public class MainActivity extends AppCompatActivity {
         if(id == R.id.action_home) {
             setTitle("Home");
             navController.navigate(R.id.homeFragment);
-        } else if(id == R.id.action_options) {
-            setTitle("Options");
-            navController.navigate(R.id.timerSettingsFragment);
         } else if(id == R.id.action_history) {
             setTitle("History");
             navController.navigate(R.id.historyFragment);

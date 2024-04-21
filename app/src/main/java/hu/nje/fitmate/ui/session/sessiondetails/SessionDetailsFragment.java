@@ -1,4 +1,4 @@
-package hu.nje.fitmate.fragments;
+package hu.nje.fitmate.ui.session.sessiondetails;
 
 import android.os.Bundle;
 
@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 
 import hu.nje.fitmate.R;
 
-public class PreviousExerciseFragment extends Fragment {
+public class SessionDetailsFragment extends Fragment {
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_previous_exercise, container, false);
-
-        return view;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_session_details, container, false);
     }
 }

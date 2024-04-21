@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="hu.nje.fitmate.fragments.HomeFragment"
+        android:name="hu.nje.fitmate.ui.fragments.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/timerSettingsFragment"
-        android:name="hu.nje.fitmate.fragments.TimerSettingsFragment"
+        android:name="hu.nje.fitmate.ui.fragments.TimerSettingsFragment"
         android:label="Workout Settings"
         tools:layout="@layout/fragment_timer_settings">
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/timerFragment"
-        android:name="hu.nje.fitmate.fragments.TimerFragment"
+        android:name="hu.nje.fitmate.ui.fragments.TimerFragment"
         android:label="Exercise"
         tools:layout="@layout/fragment_timer">
         <action
@@ -40,17 +40,17 @@
     </fragment>
     <fragment
         android:id="@+id/statsFragment"
-        android:name="hu.nje.fitmate.fragments.StatsFragment"
+        android:name="hu.nje.fitmate.ui.fragments.StatsFragment"
         android:label="Stats"
         tools:layout="@layout/fragment_stats" />
     <fragment
         android:id="@+id/historyFragment"
-        android:name="hu.nje.fitmate.fragments.HistoryFragment"
-        android:label="fragment_history"
+        android:name="hu.nje.fitmate.ui.session.sessionlist.HistoryFragment"
+        android:label="Session History"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="hu.nje.fitmate.fragments.SettingsFragment"
-        android:label="fragment_settings"
+        android:name="hu.nje.fitmate.ui.fragments.SettingsFragment"
+        android:label="Goal Settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

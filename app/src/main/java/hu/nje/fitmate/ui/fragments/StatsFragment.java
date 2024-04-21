@@ -1,4 +1,4 @@
-package hu.nje.fitmate.fragments;
+package hu.nje.fitmate.ui.fragments;
 
 import android.os.Bundle;
 
@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 
 import hu.nje.fitmate.R;
 
-public class OptionsFragment extends Fragment {
+
+public class StatsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_options, container, false);
+        View view = inflater.inflate(R.layout.fragment_stats, container, false);
 
-        return view ;
+        return view;
     }
 }
