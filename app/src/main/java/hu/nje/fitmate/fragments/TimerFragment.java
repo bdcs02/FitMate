@@ -197,11 +197,12 @@ public class TimerFragment extends Fragment {
                     data += speed + "\n";
                 }
                 Log.d(getTag(), "DATA: " +data);
+                getNavController().navigate(R.id.statsFragment);
             }
 
 
             //Navigate
-            getNavController().navigate(R.id.statsFragment);
+
         }
 
         if(exercise)
