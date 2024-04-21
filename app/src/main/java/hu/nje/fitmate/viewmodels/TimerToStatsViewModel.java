@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 public class TimerToStatsViewModel extends ViewModel {
     private final MutableLiveData<String> startTime = new MutableLiveData<>();
     private final MutableLiveData<String> endTime = new MutableLiveData<>();
-    private final MutableLiveData<Integer> duration = new MutableLiveData<>();
+    private final MutableLiveData<Float> duration = new MutableLiveData<>();
 
     private final MutableLiveData<Float> gpsMaximumSpeed = new MutableLiveData<>();
     private final MutableLiveData<Float> gpsMinimumSpeed = new MutableLiveData<>();
@@ -20,7 +20,7 @@ public class TimerToStatsViewModel extends ViewModel {
         return endTime;
     }
 
-    public MutableLiveData<Integer> getDuration() {
+    public MutableLiveData<Float> getDuration() {
         return duration;
     }
 

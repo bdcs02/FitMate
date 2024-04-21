@@ -169,7 +169,7 @@ public class TimerFragment extends Fragment {
 
             //Duration
             int duration = ((exerciseMinute * 60) + exerciseSecond + (restMinute * 60) + restSecond) * timerSettingsViewModel.getSets().getValue() * 2;
-            timerToStatsViewModel.getDuration().setValue(duration / 60);
+            timerToStatsViewModel.getDuration().setValue((float) (duration / 60));
             float minutes = (duration / 60f);
             Log.d(getTag(), "Duration in minutes: " + String.format("%.2f", minutes));
 
@@ -197,7 +197,7 @@ public class TimerFragment extends Fragment {
                     data += speed + "\n";
                 }
                 Log.d(getTag(), "DATA: " +data);
-                getNavController().navigate(R.id.statsFragment);
+
             }
 
 
@@ -217,6 +217,7 @@ public class TimerFragment extends Fragment {
             statusTextView.setText("Rest");
             view.setBackgroundColor(getResources().getColor(R.color.light_green));
         }
+        getNavController().navigate(R.id.statsFragment);
     }
 
     private NavController getNavController() {
