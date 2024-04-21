@@ -1,4 +1,4 @@
-package hu.nje.fitmate.fragments;
+package hu.nje.fitmate.ui.fragments;
 
 import android.app.TimePickerDialog;
 import android.os.Bundle;

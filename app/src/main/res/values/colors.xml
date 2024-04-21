@@ -4,4 +4,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="light_blue">#FFADDFFF</color>
     <color name="light_green">#FFD1FFBD</color>
+
+    <color name="dark_purple">#820263</color>
+    <color name="endTime">#222222</color>
+    <color name="divider">#DAD8D8</color>
 </resources>

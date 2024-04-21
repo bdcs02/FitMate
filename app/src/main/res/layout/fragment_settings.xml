@@ -5,7 +5,7 @@
     android:id="@+id/action_settings"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SettingsFragment" >
+    tools:context=".ui.fragments.SettingsFragment" >
 
     <Button
         android:id="@+id/btBackSettings"
