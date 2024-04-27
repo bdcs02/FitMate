@@ -1,18 +1,11 @@
 package hu.nje.fitmate;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -22,7 +15,6 @@ import androidx.room.Room;
 import hu.nje.fitmate.database.AppDatabase;
 import hu.nje.fitmate.database.models.Category;
 import hu.nje.fitmate.database.models.Session;
-import hu.nje.fitmate.viewmodels.GPSViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -106,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
         } else if(id == R.id.action_history) {
             setTitle("History");
             navController.navigate(R.id.historyFragment);
-        }  else if(id == R.id.action_settings) {
+        }  else if(id == R.id.action_goal) {
             setTitle("Settings");
-            navController.navigate(R.id.settingsFragment);
+            navController.navigate(R.id.goalFragment);
         }
         if(item.getItemId() == R.id.action_timerSettingsFragment) {
             navController.navigate(R.id.timerSettingsFragment);

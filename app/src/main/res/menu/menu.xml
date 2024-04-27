@@ -17,8 +17,8 @@
         android:title="History"
         app:showAsAction="never" />
 
-    <item android:id="@+id/action_settings"
+    <item android:id="@+id/action_goal"
         android:orderInCategory="100"
-        android:title="Settings"
+        android:title="Set Goal"
         app:showAsAction="never" />
 </menu>
