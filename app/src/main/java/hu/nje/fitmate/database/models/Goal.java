@@ -6,28 +6,21 @@ import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys =
-        @ForeignKey(entity = Category.class,
-                parentColumns = "categoryID",
-                childColumns = "categoryID",
-                onDelete = ForeignKey.CASCADE))
+@ForeignKey(entity = Category.class,
+        parentColumns = "categoryID",
+        childColumns = "categoryID",
+        onDelete = ForeignKey.CASCADE))
 public class Goal {
 
     public Goal() {
     }
-
-    public Goal(String goalDesc, double duration, double burnedCalories, boolean isAchieved, int categoryID) {
-        this.goalDesc = goalDesc;
-        this.duration = duration;
-        this.burnedCalories = burnedCalories;
-        this.isAchieved = isAchieved;
-        this.categoryID = categoryID;
-    }
-
     @PrimaryKey(autoGenerate = true)
     @NonNull
     private int goalID;
 
     private String goalDesc;
+
+//    private double weight;
 
     private double duration;
 
@@ -37,6 +30,16 @@ public class Goal {
 
     private int categoryID;
 
+    public Goal(String goalDesc,double weight, double duration, double burnedCalories, boolean isAchieved, int categoryID) {
+        this.goalDesc = goalDesc;
+        this.duration = duration;
+//        this.weight = weight;
+        this.burnedCalories = burnedCalories;
+        this.isAchieved = isAchieved;
+        this.categoryID = categoryID;
+    }
+
+
     public int getGoalID() {
         return goalID;
     }
@@ -44,6 +47,14 @@ public class Goal {
     public void setGoalID(int goalID) {
         this.goalID = goalID;
     }
+
+//    public double getWeight() {
+//        return weight;
+//    }
+//
+//    public void setWeight(double weight) {
+//        this.weight = weight;
+//    }
 
     public String getGoalDesc() {
         return goalDesc;
