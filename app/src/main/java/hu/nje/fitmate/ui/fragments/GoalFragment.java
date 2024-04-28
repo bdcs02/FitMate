@@ -9,6 +9,7 @@ import androidx.navigation.NavController;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 import hu.nje.fitmate.MainActivity;
 import hu.nje.fitmate.R;
+import hu.nje.fitmate.database.AppDatabase;
+import hu.nje.fitmate.database.models.Goal;
 import hu.nje.fitmate.viewmodels.GoalViewModel;
 
 public class GoalFragment extends Fragment {
@@ -69,19 +74,22 @@ public class GoalFragment extends Fragment {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                try {
-                    double weight = Double.parseDouble(s.toString());
-                    viewModel.setWeight(weight);
-                }catch (NumberFormatException e) {
-                    Toast.makeText(getContext(), "Please enter a valid number!", Toast.LENGTH_SHORT).show();
-                    editTextWeight.setText("");
+                String text = s.toString();
+                if(!text.isEmpty())
+                {
+                    try {
+                        double weight = Double.parseDouble(text);
+                        viewModel.setWeight(weight);
+                    }catch (NumberFormatException e) {
+                        Toast.makeText(getContext(), "Please enter a valid number!", Toast.LENGTH_SHORT).show();
+                        viewModel.setWeight(0);
+                        editTextWeight.setText("0");
+                    }
                 }
-
             }
         });
 
@@ -153,11 +161,41 @@ public class GoalFragment extends Fragment {
             getNavController().navigate(R.id.homeFragment);
         });
 
+        btnSave.setOnClickListener(v -> {
+            try {
+                double weight = Double.parseDouble(editTextWeight.getText().toString());
+                double duration = Double.parseDouble(editTextDuration.getText().toString());
+                System.out.println(weight + " " + duration);
+                double burnedCalories = Double.parseDouble(textViewBurnedCalories.getText().toString());
+                String goalDesc = "";
+                boolean isAchieved = false;
+                Goal goal = new Goal(goalDesc, weight, duration, burnedCalories, isAchieved, 1);
+
+                getAppdatabase().goalDao().insertGoal(goal);
+                Toast.makeText(getContext(), "Goal saved!", Toast.LENGTH_SHORT).show();
+
+                editTextWeight.setText("0");
+                editTextDuration.setText("0");
+                seekBarDuration.setProgress(0);
+
+                List<Goal> listGoal = new ArrayList<>(getAppdatabase().goalDao().getAllGoals());
+                for(Goal item: listGoal) {
+                    System.out.println(item);
+                }
+            } catch(Exception e) {
+                Toast.makeText(getContext(), "Please provide enough info!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
 
     private NavController getNavController() {
         return ((MainActivity)getActivity()).getNavController();
+    }
+
+    private AppDatabase getAppdatabase() {
+        return ((MainActivity)getActivity()).getAppDatabase();
     }
 
 

@@ -39,4 +39,5 @@ public class GoalViewModel extends ViewModel {
         this.duration.setValue(duration);
         calculateCalories();
     }
+
 }
