@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -184,8 +185,10 @@ public class TimerFragment extends Fragment {
                 Log.d(getTag(), "Speed minimum: " + Collections.min(gpsSpeedData));
                 //Average
                 float sum = 0;
+                int idx = 0;
                 for (float speed : gpsSpeedData) {
                     sum += speed;
+                    idx++;
                 }
                 float average = sum /  gpsSpeedData.size();
                 timerToStatsViewModel.getGpsAverageSpeed().setValue(average);
