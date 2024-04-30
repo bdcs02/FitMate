@@ -74,9 +74,8 @@ public class StatsFragment extends Fragment {
                 String startTime = timerToStatsViewModel.getStartTime().getValue();
                 String endTime = timerToStatsViewModel.getEndTime().getValue();
                 String categoryDesc = timerSettingsViewModel.getExerciseType().getValue();
-                goalViewModel.calculateCalories();
                 //double burnedCalories = goalViewModel.getBurnedCalories().getValue();
-                Session session = new Session(startTime,endTime,1000,categoryDesc,1);
+                Session session = new Session(startTime,endTime,1,categoryDesc,getAppdatabase().categoryDao().getCatIdFromName(categoryDesc));
 
                 getAppdatabase().sessionDao().insertSession(session);
                 Toast.makeText(getContext(), "Session saved!", Toast.LENGTH_SHORT).show();

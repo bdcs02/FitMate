@@ -20,4 +20,5 @@ public interface GoalDao {
 
     @Query("SELECT * FROM Goal")
     public List<Goal> getAllGoals();
+
 }
