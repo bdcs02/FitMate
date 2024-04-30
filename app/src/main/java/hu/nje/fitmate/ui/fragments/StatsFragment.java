@@ -67,6 +67,11 @@ public class StatsFragment extends Fragment {
 
             timeText.setText("Time: " + startTime + " " + endTime);
         });
+        goalViewModel.getBurnedCalories().observe(getViewLifecycleOwner(), burnedCaloriesValue -> {
+            // Frissítjük a megjelenítést az elégetett kalóriákkal
+            caloriesText.setText("Calories: " + burnedCaloriesValue);
+        });
+
 
         saveExitButton.setOnClickListener(v -> {
             try {
@@ -74,10 +79,18 @@ public class StatsFragment extends Fragment {
                 String startTime = timerToStatsViewModel.getStartTime().getValue();
                 String endTime = timerToStatsViewModel.getEndTime().getValue();
                 String categoryDesc = timerSettingsViewModel.getExerciseType().getValue();
-                //double burnedCalories = goalViewModel.getBurnedCalories().getValue();
-                Session session = new Session(startTime,endTime,1,categoryDesc,getAppdatabase().categoryDao().getCatIdFromName(categoryDesc));
+                double burnedCalories;
+                if(goalViewModel.getBurnedCalories().getValue() == null)
+                {
+                    burnedCalories = 1;
+                }
+                else {
+                    burnedCalories = goalViewModel.getBurnedCalories().getValue();
+                }
+                Session session = new Session(startTime,endTime,burnedCalories,categoryDesc,getAppdatabase().categoryDao().getCatIdFromName(categoryDesc));
 
                 getAppdatabase().sessionDao().insertSession(session);
+
                 Toast.makeText(getContext(), "Session saved!", Toast.LENGTH_SHORT).show();
 
             } catch(Exception e) {
