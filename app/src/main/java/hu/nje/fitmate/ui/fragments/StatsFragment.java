@@ -55,22 +55,13 @@ public class StatsFragment extends Fragment {
         maxSpeedText = view.findViewById(R.id.maxspeedText);
         caloriesText = view.findViewById(R.id.calories);
 
+        distanceText.setText("Duration " + String.format("%.2f",timerToStatsViewModel.getDuration().getValue()) + " minutes");
+        maxSpeedText.setText("Max Speed: " + String.format("%.2f", timerToStatsViewModel.getGpsMaximumSpeed().getValue()) + " m/s");
+        String endTimeVM = timerToStatsViewModel.getEndTime().getValue();
 
-       timerToStatsViewModel.getDuration().observe(getViewLifecycleOwner(), duration ->
-                distanceText.setText("Duration " + String.valueOf(duration) + " minutes"));
+        timeText.setText("Time: " + timerToStatsViewModel.getStartTime().getValue().toString() + " " + endTimeVM);
 
-        timerToStatsViewModel.getGpsMaximumSpeed().observe(getViewLifecycleOwner(), gps ->
-                maxSpeedText.setText("Max Speed: " + String.valueOf(gps)));
-
-        timerToStatsViewModel.getStartTime().observe(getViewLifecycleOwner(), startTime -> {
-            String endTime = timerToStatsViewModel.getEndTime().getValue();
-
-            timeText.setText("Time: " + startTime + " " + endTime);
-        });
-        goalViewModel.getBurnedCalories().observe(getViewLifecycleOwner(), burnedCaloriesValue -> {
-            // Frissítjük a megjelenítést az elégetett kalóriákkal
-            caloriesText.setText("Calories: " + burnedCaloriesValue);
-        });
+        caloriesText.setText("Calories: " + String.format("%.2f", CalcCalorie(timerToStatsViewModel.getDuration().getValue())) + " kcal");
 
 
         saveExitButton.setOnClickListener(v -> {
@@ -79,15 +70,7 @@ public class StatsFragment extends Fragment {
                 String startTime = timerToStatsViewModel.getStartTime().getValue();
                 String endTime = timerToStatsViewModel.getEndTime().getValue();
                 String categoryDesc = timerSettingsViewModel.getExerciseType().getValue();
-                double burnedCalories;
-                if(goalViewModel.getBurnedCalories().getValue() == null)
-                {
-                    burnedCalories = 1;
-                }
-                else {
-                    burnedCalories = goalViewModel.getBurnedCalories().getValue();
-                }
-                Session session = new Session(startTime,endTime,burnedCalories,categoryDesc,getAppdatabase().categoryDao().getCatIdFromName(categoryDesc));
+                Session session = new Session(startTime,endTime,CalcCalorie(timerToStatsViewModel.getDuration().getValue()),categoryDesc,getAppdatabase().categoryDao().getCatIdFromName(categoryDesc));
 
                 getAppdatabase().sessionDao().insertSession(session);
 
@@ -100,7 +83,13 @@ public class StatsFragment extends Fragment {
         });
         return view;
     }
-
+    private double CalcCalorie(double duration) {
+                double kg = 0.0;
+                if(goalViewModel.getWeight().getValue() == null) kg = 70.0;
+                else kg = goalViewModel.getWeight().getValue();
+                double durationInHours = duration / 60;
+                return durationInHours * kg * 6 * 100.0 / 100.0;
+    }
     private NavController getNavController() {
         return ((MainActivity)getActivity()).getNavController();
     }
