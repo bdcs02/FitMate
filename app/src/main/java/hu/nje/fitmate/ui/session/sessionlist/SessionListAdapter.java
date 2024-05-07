@@ -37,7 +37,7 @@ public class SessionListAdapter extends RecyclerView.Adapter<SessionHolder> {
     public void onBindViewHolder(@NonNull SessionHolder holder, int position) {
         Session session = sessionList.get(position);
         holder.startTimeTextView.setText(session.getStartTime());
-        holder.burnedCaloriesTextView.setText(Double.toString(session.getBurnedCalories()) + "kcal");
+        holder.burnedCaloriesTextView.setText(String.format("%.2f",session.getBurnedCalories()) + "kcal");
         holder.sessionDescTextView.setText(session.getSessionDesc());
 
         holder.itemView.setOnClickListener(v -> {

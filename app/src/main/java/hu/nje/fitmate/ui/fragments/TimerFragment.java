@@ -170,8 +170,10 @@ public class TimerFragment extends Fragment {
 
             //Duration
             int duration = ((exerciseMinute * 60) + exerciseSecond + (restMinute * 60) + restSecond) * timerSettingsViewModel.getSets().getValue() * 2;
-            timerToStatsViewModel.getDuration().setValue((float) (duration / 60));
             float minutes = (duration / 60f);
+            timerToStatsViewModel.getDuration().setValue(minutes);
+
+
             Log.d(getTag(), "Duration in minutes: " + String.format("%.2f", minutes));
 
             //GPS
