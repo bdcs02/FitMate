@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             appDatabase.categoryDao().insertCategory(new Category("Plank","Leírás"));
         }
 
-        if(appDatabase.sessionDao().getAllSessions().isEmpty()) {
+        /*if(appDatabase.sessionDao().getAllSessions().isEmpty()) {
             appDatabase.sessionDao().insertSession(new Session("2024.04.01 11:00", "2024.04.01 12:00", 122.5, "Session description", 1));
             appDatabase.sessionDao().insertSession(new Session("2024.04.01 12:00", "2024.04.01 13:00", 150.9, "Session description", 1));
             appDatabase.sessionDao().insertSession(new Session("2024.04.01 13:00", "2024.04.01 14:00", 210, "Session description", 2));
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             appDatabase.sessionDao().insertSession(new Session("2024.04.01 03:00", "2024.04.01 04:00", 56.1, "Session description", 3));
             appDatabase.sessionDao().insertSession(new Session("2024.04.01 07:00", "2024.04.01 08:00", 98.3, "Session description", 4));
             appDatabase.sessionDao().insertSession(new Session("2024.04.01 09:00", "2024.04.01 10:00", 85.7, "Session description", 4));
-        }
+        } */
 
     }
 
