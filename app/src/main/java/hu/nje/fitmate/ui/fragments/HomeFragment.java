@@ -1,25 +1,28 @@
 package hu.nje.fitmate.ui.fragments;
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import org.json.JSONObject;
+import hu.nje.fitmate.MainActivity;
 import hu.nje.fitmate.R;
+import hu.nje.fitmate.database.AppDatabase;
+import hu.nje.fitmate.database.models.Goal;
 import hu.nje.fitmate.viewmodels.GPSViewModel;
+import hu.nje.fitmate.viewmodels.GoalViewModel;
 
 
 public class HomeFragment extends Fragment {
@@ -29,16 +32,40 @@ public class HomeFragment extends Fragment {
     String url;
     ImageView idoicon;
 
-    @SuppressLint("MissingInflatedId")
+    Button start;
+
+    TextView dailygoal;
+    TextView prev_calories;
+    TextView prev_time;
+
+    //GoalViewModel goalViewModel;
+
+    //Button previous;
+    TextView forecast;
+     //Goal viewgoal;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //goalViewModel = new ViewModelProvider(getActivity()).get(GoalViewModel.class);
+        //viewgoal = goalViewModel.getDuration.getValue();
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        forecast = view.findViewById(R.id.Tv_Weather);
+        dailygoal = view.findViewById(R.id.Tv_daily);
+        prev_calories = view.findViewById(R.id.Tv_CalBurn);
+        prev_time = view.findViewById(R.id.Tv_Tm);
+
+
+        SetText();
 
         gpsViewModel = new ViewModelProvider(this).get(GPSViewModel.class);
 
         data = view.findViewById(R.id.Tv_Temp);
         idoicon = view.findViewById(R.id.Tv_WeatherImg);
+
+        start = view.findViewById(R.id.bt_StartEx);
+        //previous = view.findViewById(R.id.bt_AllPrevEx);
 
         gpsViewModel.setContext(getContext());
         //GPS
@@ -63,7 +90,22 @@ public class HomeFragment extends Fragment {
             IdoJarasLekerdez(lon,lat);//idojaras lekerdezes
         }
 
+        start.setOnClickListener(v -> {
+            getNavController().navigate(R.id.timerSettingsFragment);
+        });
+
+
+        /*previous.setOnClickListener(v -> {
+            getNavController().navigate(R.id.HistoryFragment);
+        });*/
+
         return view;
+    }
+
+    private void SetText() {
+        //prev_calories.setText("Calories burnt" + viewgoal. + " kal")
+        //prev_time.setText("Time: " + )
+        //dailygoal.setText(" " + viewgoal.)
     }
 
     public void IdoJarasLekerdez(String lon,String lat){
@@ -77,7 +119,10 @@ public class HomeFragment extends Fragment {
                     try {
                         JSONObject datatime=response.getJSONObject("current");
                         double homerseklet=datatime.getDouble("temp_c");
-                        data.setText(""+homerseklet);
+                        data.setText("Tempeture: "+homerseklet+" °C");
+                        JSONObject felhose=datatime.getJSONObject("condition");
+                        String fel=felhose.getString("text");
+                        forecast.setText("Todays weather: "+fel);
 
                         Toast.makeText(getContext(), "Sikeres lekérdezés", Toast.LENGTH_SHORT).show();
 
@@ -97,7 +142,6 @@ public class HomeFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(request);
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -110,4 +154,10 @@ public class HomeFragment extends Fragment {
             gpsViewModel.Start();
         }
     }
+
+    private NavController getNavController() {
+        return ((MainActivity)getActivity()).getNavController();
+    }
+
+    private AppDatabase getAppdatabase() { return ((MainActivity)getActivity()).getAppDatabase();}
 }
