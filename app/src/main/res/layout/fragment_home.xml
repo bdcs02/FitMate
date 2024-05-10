@@ -5,7 +5,7 @@
     android:id="@+id/action_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7C5ABA"
+    android:background="@color/white"
     tools:context=".ui.fragments.HomeFragment">
 
     <TextView
@@ -30,26 +30,32 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.012">
+        app:layout_constraintVertical_bias="0.012"
+        android:background="@color/light_blue">
         <!--DAILY-->
         <LinearLayout
             android:id="@+id/Ly_daily"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center">
+            android:layout_gravity="left"
+            android:paddingLeft="15dp">
 
             <TextView
                 android:id="@+id/Tv_daily"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Daily Goal: "
-                android:textSize="30dp" />
+                android:text="Daily Goal:"
+                android:textSize="25dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                />
 
         </LinearLayout>
         <!--DAILY V E G E-->
 
         <!--WEATHER-->
         <LinearLayout
+            android:paddingLeft="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -60,10 +66,14 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/weathername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Weather"
-                    android:textSize="30dp" />
+                    android:text="Weather:"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:textColor="@color/black"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -88,8 +98,9 @@
                             android:id="@+id/Tv_Weather"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Todays weather:"
-                            android:textSize="30dp" />
+                            android:text="Todays weather: "
+                            android:textSize="25dp"
+                            android:textColor="@color/black"/>
                         <!--WEATHER jelzés V E G E-->
 
                         <!--WEATHER celsius-->
@@ -97,8 +108,9 @@
                             android:id="@+id/Tv_Temp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Temperature:"
-                            android:textSize="30dp" />
+                            android:text="Temperature: "
+                            android:textSize="25dp"
+                            android:textColor="@color/black"/>
                         <!--WEATHER celsius V E G E-->
 
                     </LinearLayout>
@@ -116,18 +128,30 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Previous exercise:"
+                android:layout_gravity="left"
+                android:layout_marginLeft="15dp"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                />
             <LinearLayout
+                android:paddingLeft="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <!--Previous img-->
-                <TextView
+                <ImageView
                     android:id="@+id/Tv_PreviousImg"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="102dp"
+                    android:layout_height="92dp"
+                    android:src="@drawable/calorie_burn"
                     android:text="KEP helye "
                     android:textSize="30dp" />
                 <!--Previous imgV E G E-->
@@ -142,14 +166,16 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Calories burnt:"
-                        android:textSize="30dp" />
+                        android:textSize="25dp"
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/Tv_Tm"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Time:"
-                        android:textSize="30dp" />
+                        android:textSize="25dp"
+                        android:textColor="@color/black"/>
 
                 </LinearLayout>
 

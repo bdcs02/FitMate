@@ -1,7 +1,10 @@
 package hu.nje.fitmate.viewmodels;
 
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+
+import hu.nje.fitmate.database.models.Goal;
 
 public class GoalViewModel extends ViewModel {
     private final double METs = 6; // running
