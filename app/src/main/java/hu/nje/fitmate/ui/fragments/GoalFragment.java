@@ -98,6 +98,7 @@ public class GoalFragment extends Fragment {
             @Override
             public void onProgressChanged(SeekBar seekBarDuration, int progress, boolean fromUser) {
                 editTextDuration.setText(String.valueOf(progress));
+                viewModel.setDuration(progress);
             }
 
             @Override
@@ -109,6 +110,7 @@ public class GoalFragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBarDuration) {
                 int finalValue = seekBarDuration.getProgress();
                 editTextDuration.setText(String.valueOf(finalValue));
+                viewModel.setDuration(finalValue);
             }
         });
 
