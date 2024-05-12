@@ -171,8 +171,9 @@ public class GoalFragment extends Fragment {
                 String goalDesc = "";
                 boolean isAchieved = false;
                 Goal goal = new Goal(goalDesc, weight, duration, burnedCalories, isAchieved, 1);
-
+                viewModel.setDuration(duration);
                 getAppdatabase().goalDao().insertGoal(goal);
+
                 Toast.makeText(getContext(), "Goal saved!", Toast.LENGTH_SHORT).show();
 
                 editTextWeight.setText("0");

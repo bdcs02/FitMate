@@ -2,8 +2,10 @@ package hu.nje.fitmate.ui.fragments;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import android.view.View;
@@ -21,6 +23,7 @@ import hu.nje.fitmate.MainActivity;
 import hu.nje.fitmate.R;
 import hu.nje.fitmate.database.AppDatabase;
 import hu.nje.fitmate.database.models.Goal;
+import hu.nje.fitmate.database.models.Session;
 import hu.nje.fitmate.viewmodels.GPSViewModel;
 import hu.nje.fitmate.viewmodels.GoalViewModel;
 
@@ -40,8 +43,9 @@ public class HomeFragment extends Fragment {
 
     //GoalViewModel goalViewModel;
 
-    //Button previous;
+    Button previous;
     TextView forecast;
+    GoalViewModel goalViewModel;
      //Goal viewgoal;
 
 
@@ -56,16 +60,23 @@ public class HomeFragment extends Fragment {
         prev_calories = view.findViewById(R.id.Tv_CalBurn);
         prev_time = view.findViewById(R.id.Tv_Tm);
 
-
         SetText();
 
         gpsViewModel = new ViewModelProvider(this).get(GPSViewModel.class);
-
+        goalViewModel = new ViewModelProvider(this).get(GoalViewModel.class);
         data = view.findViewById(R.id.Tv_Temp);
         idoicon = view.findViewById(R.id.Tv_WeatherImg);
 
         start = view.findViewById(R.id.bt_StartEx);
-        //previous = view.findViewById(R.id.bt_AllPrevEx);
+        previous = view.findViewById(R.id.bt_AllPrevEx);
+        if(getAppdatabase() != null) {
+            if(getAppdatabase().goalDao().getAllGoals() != null) {
+                dailygoal.setText("Daily Goal: " + getAppdatabase().goalDao().getAllGoals().get( getAppdatabase().goalDao().getAllGoals().size() - 1).getDuration() + " min");
+            }
+            else {
+                dailygoal.setText("Daily Goal: ");
+            }
+        }
 
         gpsViewModel.setContext(getContext());
         //GPS
@@ -95,17 +106,24 @@ public class HomeFragment extends Fragment {
         });
 
 
-        /*previous.setOnClickListener(v -> {
-            getNavController().navigate(R.id.HistoryFragment);
-        });*/
+        previous.setOnClickListener(v -> {
+            getNavController().navigate(R.id.historyFragment);
+        });
 
         return view;
     }
 
+
     private void SetText() {
-        //prev_calories.setText("Calories burnt" + viewgoal. + " kal")
-        //prev_time.setText("Time: " + )
-        //dailygoal.setText(" " + viewgoal.)
+        if(getAppdatabase() != null)
+        {
+
+            Session session = getAppdatabase().sessionDao().getAllSessions().get(getAppdatabase().sessionDao().getAllSessions().size() - 1);
+            if(session != null) {
+                prev_calories.setText("Calories burnt : " + String.format("%.2f",session.getBurnedCalories()) + " kal");
+                prev_time.setText("Time: " + session.getStartTime() + " - " + session.getEndTime() );
+            }
+        }
     }
 
     public void IdoJarasLekerdez(String lon,String lat){
