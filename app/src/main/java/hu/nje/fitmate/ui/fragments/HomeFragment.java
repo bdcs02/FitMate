@@ -70,11 +70,11 @@ public class HomeFragment extends Fragment {
         start = view.findViewById(R.id.bt_StartEx);
         previous = view.findViewById(R.id.bt_AllPrevEx);
         if(getAppdatabase() != null) {
-            if(getAppdatabase().goalDao().getAllGoals() != null) {
+            if(getAppdatabase().goalDao().getAllGoals().size() > 0) {
                 dailygoal.setText("Daily Goal: " + getAppdatabase().goalDao().getAllGoals().get( getAppdatabase().goalDao().getAllGoals().size() - 1).getDuration() + " min");
             }
             else {
-                dailygoal.setText("Daily Goal: ");
+                dailygoal.setText("Daily Goal: nincs beállítva");
             }
         }
 
@@ -117,11 +117,13 @@ public class HomeFragment extends Fragment {
     private void SetText() {
         if(getAppdatabase() != null)
         {
-
-            Session session = getAppdatabase().sessionDao().getAllSessions().get(getAppdatabase().sessionDao().getAllSessions().size() - 1);
-            if(session != null) {
-                prev_calories.setText("Calories burnt : " + String.format("%.2f",session.getBurnedCalories()) + " kal");
-                prev_time.setText("Time: " + session.getStartTime() + " - " + session.getEndTime() );
+            if(getAppdatabase().sessionDao().getAllSessions().size() > 0)
+            {
+                Session session = getAppdatabase().sessionDao().getAllSessions().get(getAppdatabase().sessionDao().getAllSessions().size() - 1);
+                if(session != null) {
+                    prev_calories.setText("Calories burnt : " + String.format("%.2f",session.getBurnedCalories()) + " kal");
+                    prev_time.setText("Time: " + session.getStartTime() + " - " + session.getEndTime() );
+                }
             }
         }
     }
