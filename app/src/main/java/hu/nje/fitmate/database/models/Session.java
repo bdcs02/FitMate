@@ -87,4 +87,16 @@ public class Session {
     public void setCategoryID(int categoryID) {
         this.categoryID = categoryID;
     }
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "sessionID=" + sessionID +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", burnedCalories=" + burnedCalories +
+                ", sessionDesc='" + sessionDesc + '\'' +
+                ", categoryID=" + categoryID +
+                '}';
+    }
 }

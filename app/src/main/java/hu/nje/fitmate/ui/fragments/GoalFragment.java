@@ -164,6 +164,7 @@ public class GoalFragment extends Fragment {
             getNavController().navigate(R.id.homeFragment);
         });
 
+        // save to database
         btnSave.setOnClickListener(v -> {
             try {
                 double weight = Double.parseDouble(editTextWeight.getText().toString());

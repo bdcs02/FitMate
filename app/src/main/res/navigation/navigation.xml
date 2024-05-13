@@ -47,10 +47,19 @@
         android:id="@+id/historyFragment"
         android:name="hu.nje.fitmate.ui.session.sessionlist.HistoryFragment"
         android:label="Session History"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_sessionDetailsFragment"
+            app:destination="@id/sessionDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/goalFragment"
         android:name="hu.nje.fitmate.ui.fragments.GoalFragment"
         android:label="Set Goal"
         tools:layout="@layout/fragment_goal" />
+    <fragment
+        android:id="@+id/sessionDetailsFragment"
+        android:name="hu.nje.fitmate.ui.session.sessiondetails.SessionDetailsFragment"
+        android:label="Session Details"
+        tools:layout="@layout/fragment_session_details" />
 </navigation>
