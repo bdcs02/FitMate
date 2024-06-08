@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation.xml"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="hu.nje.fitmate.ui.fragments.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_timerSettingsFragment"
+            app:destination="@id/timerSettingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_historyFragment"
+            app:destination="@id/historyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_goalFragment"
+            app:destination="@id/goalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timerSettingsFragment"
+        android:name="hu.nje.fitmate.ui.fragments.TimerSettingsFragment"
+        android:label="Workout Settings"
+        tools:layout="@layout/fragment_timer_settings">
+        <action
+            android:id="@+id/action_timerSettingsFragment_to_timerFragment"
+            app:destination="@id/timerFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="hu.nje.fitmate.ui.fragments.TimerFragment"
+        android:label="Exercise"
+        tools:layout="@layout/fragment_timer">
+        <action
+            android:id="@+id/action_timerFragment_to_statsFragment"
+            app:destination="@id/statsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="hu.nje.fitmate.ui.fragments.StatsFragment"
+        android:label="Stats"
+        tools:layout="@layout/fragment_stats" />
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="hu.nje.fitmate.ui.session.sessionlist.HistoryFragment"
+        android:label="Session History"
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_sessionDetailsFragment"
+            app:destination="@id/sessionDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/goalFragment"
+        android:name="hu.nje.fitmate.ui.fragments.GoalFragment"
+        android:label="Set Goal"
+        tools:layout="@layout/fragment_goal" />
+    <fragment
+        android:id="@+id/sessionDetailsFragment"
+        android:name="hu.nje.fitmate.ui.session.sessiondetails.SessionDetailsFragment"
+        android:label="Session Details"
+        tools:layout="@layout/fragment_session_details" />
+</navigation>
